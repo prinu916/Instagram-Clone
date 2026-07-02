@@ -9,6 +9,20 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use('/public', express.static('public'));
 
+app.use((req, res, next) => {
+    const allowedOrigin = process.env.FRONTEND_URL || process.env.CLIENT_URL || 'http://localhost:3000';
+    res.header('Access-Control-Allow-Origin', allowedOrigin);
+    res.header('Access-Control-Allow-Credentials', 'true');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+
+    if (req.method === 'OPTIONS') {
+        return res.sendStatus(204);
+    }
+
+    next();
+});
+
 if (process.env.NODE_ENV != "production") {
     require('dotenv').config({ path: 'backend/config/config.env' });
 }

@@ -1,5 +1,6 @@
-// export const SOCKET_ENDPOINT = "http://localhost:4000";
-export const SOCKET_ENDPOINT = "https://instagrammern.herokuapp.com";
+import { getBackendBaseUrl } from './api';
+
+export const SOCKET_ENDPOINT = getBackendBaseUrl();
 
 export const stories = [
     {

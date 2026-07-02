@@ -10,6 +10,7 @@ import { addComment, deletePost, likePost, savePost } from '../../../actions/pos
 import { Picker } from 'emoji-mart';
 import { metaballsMenu } from '../SvgIcons';
 import moment from 'moment';
+import { getImageUrl } from '../../../utils/api';
 
 const PostItem = ({ _id, caption, likes, comments, image, postedBy, savedBy, createdAt }) => {
 
@@ -26,11 +27,7 @@ const PostItem = ({ _id, caption, likes, comments, image, postedBy, savedBy, cre
 
     const { user } = useSelector((state) => state.user);
 
-    const IMAGE_URL = "http://localhost:4000";
-    const getPostImageSrc = (imageUrl) => {
-        if (!imageUrl) return "";
-        return imageUrl.startsWith("http") ? imageUrl : `${IMAGE_URL}${imageUrl}`;
-    };
+    const getPostImageSrc = (imageUrl) => getImageUrl(imageUrl);
 
     const handleLike = () => {
         setLiked(!liked);
